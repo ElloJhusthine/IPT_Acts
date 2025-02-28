@@ -1,0 +1,48 @@
+from rental.models import Rental, Car, RentalLocation
+from django.contrib.auth.models import User
+
+users = [
+    User(username="jstne", email="jhusthine.ello@gmail.com", password="hateu123"),
+    User(username="jstne", email="jstne@email.com", password="loveu123"),
+    User(username="jhust", email="jhust@email.com", password="jhust123"),
+    User(username="jhush", email="jhush@email.com", password="jhush123"),
+    User(username="ello", email="ello@email.com", password="ello123"),
+]
+
+User.objects.bulk_create(users)
+
+jstne = User.objects.get(username="jstne")
+jstne = User.objects.get(username="jstne")
+admin_user = User.objects.get(username="admin")  
+jhust = User.objects.get(username="jhust")
+jhush = User.objects.get(username="jhush")
+
+sikad = Car.objects.get(name="Sikad")
+rela = Car.objects.get(name="Rela")
+dragon = Car.objects.get(name="Dragon")
+
+cdo = RentalLocation.objects.get(name="CDO")
+iligan = RentalLocation.objects.get(name="Iligan")
+manila = RentalLocation.objects.get(name="Manila")
+
+
+rentals = [
+    Rental(car=sikad, renter=andrew, payment="not yet", sale_price=100.00, rental_location=cdo, start_date="2023-02-13", end_date="2025-02-25"),
+    Rental(car=dragon, renter=neil, payment="not yet", sale_price=100.00, rental_location=iligan, start_date="2025-02-13", end_date="2026-02-25"),
+    Rental(car=dragon, renter=dako, payment="successful", sale_price=100.00, rental_location=manila, start_date="2024-02-13", end_date="2025-02-25"),
+    Rental(car=sikad, renter=llagas, payment="successful", sale_price=100.00, rental_location=cdo, start_date="2025-02-13", end_date="2029-02-25"),
+    Rental(car=rela, renter=llagas, payment="successful", sale_price=100.00, rental_location=cdo, start_date="2025-02-13", end_date="2025-02-25"),
+    Rental(car=sikad, renter=neil, payment="successful", sale_price=100.00, rental_location=iligan, start_date="2020-02-13", end_date="2028-02-25"),
+    Rental(car=sikad, renter=andrew, payment="successful", sale_price=100.00, rental_location=cdo, start_date="2025-02-13", end_date="2027-02-25"),
+    Rental(car=rela, renter=admin, payment="successful", sale_price=100.00, rental_location=iligan, start_date="2021-02-13", end_date="2025-02-25"),
+    Rental(car=dragon, renter=admin, payment="successful", sale_price=100.00, rental_location=cdo, start_date="2015-02-13", end_date="2025-02-25"),
+    Rental(car=sikad, renter=dako, payment="successful", sale_price=100.00, rental_location=manila, start_date="2015-02-13", end_date="2025-02-25"),
+]
+
+Rental.objects.bulk_create(rentals)
+
+successful = Rental.objects.filter(payment='successful')
+
+unsuccessful = Rental.objects.filter(payment='not yet')
+
+average = Rental.objects.filter(payment='successful').aggregate(Avg('sale_price'))
